@@ -9,10 +9,12 @@
 var GOL = {};
 
 GOL.init = function() {
+   GOL.generationCounter = document.getElementById('generationCounter');
    GOL.canvas = document.getElementById('canvas');
    GOL.ctx = GOL.canvas.getContext('2d');
 
    GOL.isRunning = false;
+   GOL.generation = 0;
 
    var w = GOL.canvas.width / 10;
    var h = GOL.canvas.width / 10;
@@ -33,16 +35,18 @@ GOL.init = function() {
    GOL.spaces[2][1] = 1;
 
 
-   window.setInterval(GOL.foo, 100);
+   window.setInterval(GOL.step, 100);
 }
 
-GOL.foo = function() {
+GOL.step = function() {
 
    GOL.draw();
 
    if (GOL.isRunning) {
       GOL.update();
    }
+
+   GOL.generationCounter.innerHTML = GOL.generation;
 }
 
 GOL.update = function() {
@@ -92,6 +96,7 @@ GOL.update = function() {
    }
 
    GOL.spaces = newSpaces;
+   GOL.generation++;
 }
 
 GOL.draw = function() {
@@ -134,8 +139,9 @@ GOL.click = function(e) {
 <body onload="GOL.init()">
 
 <canvas width="500" height="500" id="canvas" style="border: 1px solid black;" onclick="GOL.click()"></canvas>
-
+<br />
 <button onclick="GOL.startstop()">Start/Stop</button>
+<p>Generation: <span id="generationCounter">0</span></p>
 
 </body>
 </html>
