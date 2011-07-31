@@ -99,6 +99,12 @@ GOL.update = function() {
    GOL.generation++;
 }
 
+GOL.oneGeneration = function() {
+   if (!GOL.isRunning) {
+      GOL.update();
+   }
+}
+
 GOL.draw = function() {
    GOL.ctx.clearRect(0, 0, GOL.canvas.width, GOL.canvas.height);
 
@@ -141,6 +147,8 @@ GOL.click = function(e) {
 <canvas width="500" height="500" id="canvas" style="border: 1px solid black;" onclick="GOL.click()"></canvas>
 <br />
 <button onclick="GOL.startstop()">Start/Stop</button>
+<button onclick="GOL.oneGeneration()">One Generation</button>
+
 <p>Generation: <span id="generationCounter">0</span></p>
 
 </body>
